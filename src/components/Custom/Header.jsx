@@ -10,6 +10,10 @@ function Header() {
     <div className='p-3 px-5 flex justify-between shadow-md'>
       <Link to={'/'}><img src="/logo.svg" alt="Logo"/></Link>
 
+      <Link to={"/resume-filter"} className='text-neutral flex flex-col items-center mt-1 hover:underline hover:text-blue-700'>
+          Resume Filter
+			</Link>
+
       {isSignedIn?
         <div className='flex gap-2 items-center'>
             <Link to={'/dashboard'}>
