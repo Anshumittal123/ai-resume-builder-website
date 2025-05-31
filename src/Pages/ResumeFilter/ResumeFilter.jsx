@@ -2,6 +2,8 @@ import Header from "@/components/Custom/Header";
 import { Button } from "@/components/ui/button";
 import { LoaderCircle } from "lucide-react";
 import { useState } from "react";
+// import {mammoth} from "mammoth";
+// import {pdfParse} from "pdf-parse";
 
 
 function ResumeFilter(){
@@ -21,6 +23,19 @@ function ResumeFilter(){
     
       return res.json(); 
     };
+
+    let data;
+    const convertDataToJson = (files) =>{
+      if(files.endsWith('.pdf')){
+        data = files;
+        console.log(`PDF Data: ${data}`);
+      }else if(files.endsWith('.docx')){
+        data = files;
+        console.log(`Docx Data: ${data}`);
+      }else{
+        console.log(`Unsupported file format for: ${files}`);
+      }
+    }
     
 
     const onSave = async (e) => {
@@ -57,6 +72,7 @@ function ResumeFilter(){
                         {results.map((file, idx) => (
                             <li key={idx}>
                                 <a className="text-blue-600 underline" href={file} target="_blank" rel="noopener noreferrer">{file}</a>
+                                {convertDataToJson(file)}
                             </li>
                         ))} 
                     </ul>
