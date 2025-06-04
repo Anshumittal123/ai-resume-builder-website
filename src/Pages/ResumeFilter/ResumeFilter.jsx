@@ -41,20 +41,6 @@ function ResumeFilter(){
       fetchAllResume();
     }, []);
 
-    let data;
-    const convertDataToJson = (files) =>{
-      if(files.endsWith('.pdf')){
-        data = files;
-        console.log(`PDF Data: ${data}`);
-      }else if(files.endsWith('.docx')){
-        data = files;
-        console.log(`Docx Data: ${data}`);
-      }else{
-        console.log(`Unsupported file format for: ${files}`);
-      }
-    }
-    
-
     const onSave = async (e) => {
       e.preventDefault();
       setLoading(true);
@@ -103,8 +89,8 @@ function ResumeFilter(){
                               </tr>
                             </thead>
                             {AllResumeData.map((file, idx) => (
-                              <tbody>
-                                <tr key={idx}  className="odd:bg-white cursor-pointer even:bg-gray-100 hover:bg-gray-100">
+                              <tbody key={idx}>
+                                <tr className="odd:bg-white cursor-pointer even:bg-gray-100 hover:bg-gray-100">
                                   <td className="px-1 py-1 text-sm font-medium text-gray-800">Example</td>
                                   <td className="px-1 py-1 text-sm font-medium text-gray-800">example2004@gmail.com</td>
                                   <td className="px-1 py-1 text-sm font-medium text-gray-800">1234567890</td>
@@ -143,8 +129,8 @@ function ResumeFilter(){
                               </tr>
                             </thead>
                             {results.map((file, idx) => (
-                              <tbody>
-                                <tr key={idx} className="odd:bg-white cursor-pointer even:bg-gray-100 hover:bg-gray-100">
+                              <tbody key={idx}>
+                                <tr className="odd:bg-white cursor-pointer even:bg-gray-100 hover:bg-gray-100">
                                   <td className="px-1 py-1 text-sm font-medium text-gray-800">Example</td>
                                   <td className="px-1 py-1 text-sm font-medium text-gray-800">example2004@gmail.com</td>
                                   <td className="px-1 py-1 text-sm font-medium text-gray-800">1234567890</td>
@@ -155,7 +141,6 @@ function ResumeFilter(){
                                   <td className="px-1 py-1 text-sm font-medium text-gray-800">L-1 Block-B New Delhi</td>
                                   <td className="px-1 py-1 text-sm font-medium text-gray-800">
                                       <a className="hover:text-blue-500 hover:underline" href={file} target="_blank" rel="noopener noreferrer">Resume View</a>
-                                      {convertDataToJson(file)}
                                   </td>
                                 </tr>
                               </tbody>  
