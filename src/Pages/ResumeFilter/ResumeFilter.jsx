@@ -3,8 +3,7 @@ import { Button } from "@/components/ui/button";
 import { LoaderCircle } from "lucide-react";
 import { useEffect, useState } from "react";
 import axios from "axios";
-// import {mammoth} from "mammoth";
-// import {pdfParse} from "pdf-parse";
+
 
 
 function ResumeFilter(){
