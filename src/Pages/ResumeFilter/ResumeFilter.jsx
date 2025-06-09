@@ -5,12 +5,29 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 
-
 function ResumeFilter(){
     const [keyword, setKeyword] = useState('');
     const [results, setResults] = useState([]);
     const [loading, setLoading] = useState(false);
-    const [AllResumeData, setAllResumeData] = useState([]);
+    // const [AllResumeData, setAllResumeData] = useState([]);
+    const [careerData, setCareerData] = useState([]);
+
+const fetchCareerData = async () => {
+  try {
+    const res = await axios.get("http://localhost:1337/api/career-details?populate=*"); //
+    setCareerData(res.data.data);
+    console.log(`candidate details from database store by career form: ${res.data.data}`);
+    console.log(`Fetch all of the candidate details from career form: ${careerData}`);
+  } catch (error) {
+    console.error("Failed to fetch career details", error);
+  }
+};
+
+useEffect(() => {
+  fetchCareerData();
+  // fetchAllResume();
+}, []);
+
 
     const MatchResume = async (keyword) => {
       console.log(keyword);
@@ -25,20 +42,17 @@ function ResumeFilter(){
       return res.json(); 
     };
 
-    const fetchAllResume = async() =>{
-      try {
-        const res = await axios.get('http://localhost:1337/api/user-resume/get-all-resumes');
-        // console.log(`Resume from backend: ${res.data.AllResume}`); 
-        setAllResumeData(res.data.AllResume || []);
-        // console.log(`All Resume Data: ${AllResumeData}`);
-      } catch (error) {
-        console.error("Error Resume Fatch:", error);
-      }
-    }
-     
-    useEffect(()=>{
-      fetchAllResume();
-    }, []);
+    // const fetchAllResume = async() =>{
+    //   try {
+    //     const res = await axios.get('http://localhost:1337/api/user-resume/get-all-resumes');
+    //     // console.log(`Resume from backend: ${res.data.AllResume}`); 
+    //     setAllResumeData(res.data.AllResume || []);
+    //     // console.log(`All Resume Data: ${AllResumeData}`);
+    //   } catch (error) {
+    //     console.error("Error Resume Fatch:", error);
+    //   }
+    // }
+
 
     const onSave = async (e) => {
       e.preventDefault();
@@ -51,7 +65,8 @@ function ResumeFilter(){
         alert("Failed to filter resumes");
       }
       setLoading(false);
-    };
+    }; 
+
 
     return(
         <>
@@ -76,35 +91,41 @@ function ResumeFilter(){
                             <table className="min-w-full divide-y divide-gray-300">
                             <thead>
                               <tr className="bg-gray-500 text-white hover:bg-gray-700">
-                                <th className="px-1 py-1 text-start text-xs font-medium uppercase">Name</th>
+                                <th className="px-1 py-1 text-start text-xs font-medium uppercase">First Name</th>
+                                <th className="px-1 py-1 text-start text-xs font-medium uppercase">Last Name</th>
                                 <th className="px-1 py-1 text-start text-xs font-medium uppercase">Email</th>
                                 <th className="px-1 py-1 text-start text-xs font-medium uppercase">Contact No.</th>
                                 <th className="px-1 py-1 text-start text-xs font-medium uppercase">Designation</th>
-                                <th className="px-1 py-1 text-start text-xs font-medium uppercase">Salary</th>
+                                <th className="px-1 py-1 text-start text-xs font-medium uppercase">Cureent Salary</th>
+                                <th className="px-1 py-1 text-start text-xs font-medium uppercase">Expected Salary</th>
                                 <th className="px-1 py-1 text-start text-xs font-medium uppercase">Experience</th>
                                 <th className="px-1 py-1 text-start text-xs font-medium uppercase">education</th>
                                 <th className="px-1 py-1 text-start text-xs font-medium uppercase">Address</th>
                                 <th className="px-1 py-1 text-start text-xs font-medium uppercase">Resume</th>
                               </tr>
                             </thead>
-                            {AllResumeData.map((file, idx) => (
+                            {careerData.map((file, idx) => (
                               <tbody key={idx}>
                                 <tr className="odd:bg-white cursor-pointer even:bg-gray-100 hover:bg-gray-100">
-                                  <td className="px-1 py-1 text-sm font-medium text-gray-800">Example</td>
-                                  <td className="px-1 py-1 text-sm font-medium text-gray-800">example2004@gmail.com</td>
-                                  <td className="px-1 py-1 text-sm font-medium text-gray-800">1234567890</td>
-                                  <td className="px-1 py-1 text-sm font-medium text-gray-800">Test Developer</td>
-                                  <td className="px-1 py-1 text-sm font-medium text-gray-800">20000</td>
-                                  <td className="px-1 py-1 text-sm font-medium text-gray-800">2 Year</td>
-                                  <td className="px-1 py-1 text-sm font-medium text-gray-800">BTech</td>
-                                  <td className="px-1 py-1 text-sm font-medium text-gray-800">L-12 Block-D New Delhi</td>
+                                  <td className="px-1 py-1 text-sm font-medium text-gray-800">{file.firstName}</td>
+                                  <td className="px-1 py-1 text-sm font-medium text-gray-800">{file.lastName}</td>
+                                  <td className="px-1 py-1 text-sm font-medium text-gray-800">{file.email}</td>
+                                  <td className="px-1 py-1 text-sm font-medium text-gray-800">{file.phoneNo}</td>
+                                  <td className="px-1 py-1 text-sm font-medium text-gray-800">{file.designation}</td>
+                                  <td className="px-1 py-1 text-sm font-medium text-gray-800">{file.currentSalary}</td>
+                                  <td className="px-1 py-1 text-sm font-medium text-gray-800">{file.expectedSalary}</td>
+                                  <td className="px-1 py-1 text-sm font-medium text-gray-800">{file.experience}</td>
+                                  <td className="px-1 py-1 text-sm font-medium text-gray-800">{file.education}</td>
+                                  <td className="px-1 py-1 text-sm font-medium text-gray-800">{file.address}</td>
                                   <td className="px-1 py-1 text-sm font-medium text-gray-800">
-                                      <a className="hover:text-blue-500 hover:underline" href={file} target="_blank" rel="noopener noreferrer">Resume View</a>
+                                    <a className="hover:text-blue-500 hover:underline" href={`http://localhost:1337${file.resume.url}`}>
+                                      Resume View
+                                    </a> 
                                   </td>
                                 </tr>
                               </tbody>  
                             ))} 
-                            </table>
+                            </table> 
                             </div>
                           </div>
                         </div>
@@ -144,7 +165,7 @@ function ResumeFilter(){
                                 </tr>
                               </tbody>  
                             ))} 
-                            </table>
+                            </table> 
                             </div>
                           </div>
                         </div>

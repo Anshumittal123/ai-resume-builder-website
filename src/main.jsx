@@ -10,6 +10,8 @@ import { ClerkProvider } from '@clerk/clerk-react'
 import EditResume from './Pages/Dashboard/components/resume/[resumeId]/edit/index.jsx'
 import ViewResume from './my-resume/[resumeId]/view/ViewResume.jsx'
 import ResumeFilter from './Pages/ResumeFilter/ResumeFilter.jsx'
+import careerForm from './Pages/Manpower form/CareerForm.jsx'
+import CareerForm from './Pages/Manpower form/CareerForm.jsx'
 
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY
 
@@ -46,6 +48,10 @@ const router = createBrowserRouter([
   {
     path: '/resume-filter',
     element: <ResumeFilter/>
+  },
+  {
+    path: '/career-form',
+    element: <CareerForm />
   }
 ]);
 

@@ -35,3 +35,10 @@
 .read-the-docs {
   color: #888;
 }
+
+#job-title{
+  font-family: "Bitter", serif;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
+}
