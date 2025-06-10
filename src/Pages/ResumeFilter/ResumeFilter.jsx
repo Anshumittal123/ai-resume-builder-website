@@ -59,7 +59,9 @@ useEffect(() => {
       setLoading(true);
       try {
         const res = await MatchResume(keyword);
-        setResults(res.matchedResumes || []);
+        console.log(`Match Resume Result: ${res.matchedResumes}`);
+        setResults(res.matchedResumes);
+        console.log(`Results of match resume: ${results}`);
       } catch (error) {
         console.error("Error filtering resumes:", error);
         alert("Failed to filter resumes");
@@ -118,7 +120,7 @@ useEffect(() => {
                                   <td className="px-1 py-1 text-sm font-medium text-gray-800">{file.education}</td>
                                   <td className="px-1 py-1 text-sm font-medium text-gray-800">{file.address}</td>
                                   <td className="px-1 py-1 text-sm font-medium text-gray-800">
-                                    <a className="hover:text-blue-500 hover:underline" href={`http://localhost:1337${file.resume.url}`}>
+                                    <a className="hover:text-blue-500 hover:underline" href={`http://localhost:1337${file.resume?.url}`}>
                                       Resume View
                                     </a> 
                                   </td>
@@ -136,40 +138,53 @@ useEffect(() => {
                             <div className="overflow-hidden border rounded-lg shadow-md">
                             <table className="min-w-full divide-y divide-gray-300">
                             <thead>
-                              <tr className="bg-gray-500 text-white hover:bg-gray-700">
-                                <th className="px-1 py-1 text-start text-xs font-medium uppercase">Name</th>
+                            <tr className="bg-gray-500 text-white hover:bg-gray-700">
+                                <th className="px-1 py-1 text-start text-xs font-medium uppercase">First Name</th>
+                                <th className="px-1 py-1 text-start text-xs font-medium uppercase">Last Name</th>
                                 <th className="px-1 py-1 text-start text-xs font-medium uppercase">Email</th>
                                 <th className="px-1 py-1 text-start text-xs font-medium uppercase">Contact No.</th>
                                 <th className="px-1 py-1 text-start text-xs font-medium uppercase">Designation</th>
-                                <th className="px-1 py-1 text-start text-xs font-medium uppercase">Salary</th>
+                                <th className="px-1 py-1 text-start text-xs font-medium uppercase">Cureent Salary</th>
+                                <th className="px-1 py-1 text-start text-xs font-medium uppercase">Expected Salary</th>
                                 <th className="px-1 py-1 text-start text-xs font-medium uppercase">Experience</th>
                                 <th className="px-1 py-1 text-start text-xs font-medium uppercase">education</th>
                                 <th className="px-1 py-1 text-start text-xs font-medium uppercase">Address</th>
                                 <th className="px-1 py-1 text-start text-xs font-medium uppercase">Resume</th>
-                              </tr>
+                            </tr>
                             </thead>
-                            {results.map((file, idx) => (
-                              <tbody key={idx}>
-                                <tr className="odd:bg-white cursor-pointer even:bg-gray-100 hover:bg-gray-100">
-                                  <td className="px-1 py-1 text-sm font-medium text-gray-800">Example</td>
-                                  <td className="px-1 py-1 text-sm font-medium text-gray-800">example2004@gmail.com</td>
-                                  <td className="px-1 py-1 text-sm font-medium text-gray-800">1234567890</td>
-                                  <td className="px-1 py-1 text-sm font-medium text-gray-800">Software Developer</td>
-                                  <td className="px-1 py-1 text-sm font-medium text-gray-800">20000</td>
-                                  <td className="px-1 py-1 text-sm font-medium text-gray-800">2 Year</td>
-                                  <td className="px-1 py-1 text-sm font-medium text-gray-800">BTech</td>
-                                  <td className="px-1 py-1 text-sm font-medium text-gray-800">L-1 Block-B New Delhi</td>
-                                  <td className="px-1 py-1 text-sm font-medium text-gray-800">
-                                      <a className="hover:text-blue-500 hover:underline" href={file} target="_blank" rel="noopener noreferrer">Resume View</a>
-                                  </td>
-                                </tr>
-                              </tbody>  
-                            ))} 
+                            {careerData.map((file, idx) => {
+                                const resumeUrl = `http://localhost:1337${file.resume?.url}`;
+                                const isMatched = results.includes(resumeUrl);
+                                return (
+                                  <tbody key={idx}>
+                                    {isMatched && (
+                                      <tr className="odd:bg-white cursor-pointer even:bg-gray-100 hover:bg-gray-100">
+                                        <td className="px-1 py-1 text-sm font-medium text-gray-800">{file.firstName}</td>
+                                        <td className="px-1 py-1 text-sm font-medium text-gray-800">{file.lastName}</td>
+                                        <td className="px-1 py-1 text-sm font-medium text-gray-800">{file.email}</td>
+                                        <td className="px-1 py-1 text-sm font-medium text-gray-800">{file.phoneNo}</td>
+                                        <td className="px-1 py-1 text-sm font-medium text-gray-800">{file.designation}</td>
+                                        <td className="px-1 py-1 text-sm font-medium text-gray-800">{file.currentSalary}</td>
+                                        <td className="px-1 py-1 text-sm font-medium text-gray-800">{file.expectedSalary}</td>
+                                        <td className="px-1 py-1 text-sm font-medium text-gray-800">{file.experience}</td>
+                                        <td className="px-1 py-1 text-sm font-medium text-gray-800">{file.education}</td>
+                                        <td className="px-1 py-1 text-sm font-medium text-gray-800">{file.address}</td>
+                                        <td className="px-1 py-1 text-sm font-medium text-gray-800">
+                                          <a className="hover:text-blue-500 hover:underline" href={resumeUrl} target="_blank" rel="noopener noreferrer">
+                                            Resume View
+                                          </a>
+                                        </td>
+                                      </tr>
+                                    )}
+                                  </tbody>
+                                );
+                              })}
                             </table> 
                             </div>
                           </div>
                         </div>
-                      </div>}
+                      </div>
+                      }
                 </div>
         </div>
         </>

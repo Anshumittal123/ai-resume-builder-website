@@ -51,13 +51,14 @@ const CareerForm = () => {
           );
 
           console.log(`form data store at database: ${formData}`)
+          console.log(`candidate first name: ${formData.firstName}`)
       
           const res = await fetch("http://localhost:1337/api/career-details", {
             method: "POST",
             body: formData,
           });
 
-          console.log(`api response: ${res}`)
+          console.log(`api response: ${res}`);
       
           if (!res.ok) {
             console.error(await res.text()); 
@@ -95,9 +96,9 @@ const CareerForm = () => {
             <div className='m-[1%] w-[33rem] border bg-gray-50 rounded-xl shadow-lg'>
                 <div className='border border-gray-200 rounded-xl'>
                     <div className='flex flex-row items-center bg-gray-200 justify-center gap-[18%] rounded-t-xl'>
-                        <div className='items-start'>
+                        {/* <div className='items-start'>
                             <img src="/paramount-Logo.png" alt="Paramount-Logo" />
-                        </div>
+                        </div> */}
                         <div>
                             <h1 id="job-title" className="text-xl">Career Application Form</h1>
                         </div>
@@ -105,43 +106,43 @@ const CareerForm = () => {
                     
                 <form onSubmit={handlerSubmitCandidateDetails} className='items-center justify-center m-3'> 
                     <div className='ml-[4%]'>
-                        <div className='flex flex-row gap-[25%] flex-wrap'>
+                        <div className='flex flex-row gap-[9%] flex-wrap'>
                             <div className='flex-col'>
                                 <label>First Name: </label>
                                 <div>
-                                    <input className='border text-sm border-gray-500 focus:outline-gray-500 rounded-sm p-1' name='firstName' required onChange={changeHandle} value={candidateData.firstName} type="text"   placeholder='example'/>
+                                    <input className='border text-sm border-gray-500 focus:outline-gray-500 rounded-sm p-1 pr-10' name='firstName' required onChange={changeHandle} value={candidateData.firstName} type="text"   placeholder='example'/>
                                 </div>
                             </div>
                             <div className='flex-col'>
                                 <label>Last Name: </label>
                                 <div>
-                                    <input className='border text-sm border-gray-500 focus:outline-gray-500 rounded-sm p-1' name='lastName' required onChange={changeHandle} value={candidateData.lastName} type="text"  placeholder='example'/>
+                                    <input className='border text-sm border-gray-500 focus:outline-gray-500 rounded-sm p-1 pr-14' name='lastName' required onChange={changeHandle} value={candidateData.lastName} type="text"  placeholder='example'/>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div className='mt-4 ml-[4%] bold'>
-                        <div className='flex  flex-row gap-[25%] flex-wrap'>
+                        <div className='flex  flex-row gap-[9%] flex-wrap'>
                             <div className='flex-col'>
                                 <label>Email: </label>
                                 <div>
-                                    <input className='border text-sm border-gray-500 focus:outline-gray-500 rounded-sm p-1' name='email' required onChange={changeHandle} value={candidateData.email} type="email" placeholder='example@gmail.com' />
+                                    <input className='border text-sm border-gray-500 focus:outline-gray-500 rounded-sm p-1 pr-10' name='email' required onChange={changeHandle} value={candidateData.email} type="email" placeholder='example@gmail.com' />
                                 </div>
                             </div>
                             <div className='flex-col'>
                                 <label>Phone No: </label>
                                 <div>
-                                    <input className='border text-sm border-gray-500 focus:outline-gray-500 rounded-sm p-1' name='phone' required onChange={changeHandle} value={candidateData.phone} type="tel" placeholder='0000-00-00-00' />
+                                    <input className='border text-sm border-gray-500 focus:outline-gray-500 rounded-sm p-1 pr-14' name='phone' required onChange={changeHandle} value={candidateData.phone} type="tel" placeholder='0000-00-00-00' />
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div className='mt-4 ml-[4%] bold'>
-                        <div className='flex flex-row gap-[18%] flex-wrap'>
+                        <div className='flex flex-row gap-[9%] flex-wrap'>
                             <div className='flex-col'>
                                 <label>Designation: </label>   
                                 <div> 
-                                    <select name="designation" required className="w-[80%] text-sm max-h-10 focus:outline-gray-500 overflow-auto p-1 border border-gray-500 rounded" value={candidateData.designation} onChange={changeHandle}>
+                                    <select name="designation" required className="w-[100%] text-sm max-h-10 focus:outline-gray-500 overflow-auto p-1 border border-gray-500 rounded" value={candidateData.designation} onChange={changeHandle}>
                                         <option className='border text-sm border-gray-500 focus:outline-gray-500 rounded-sm ' disabled hidden value="">Your Designation</option>
                                         <option value={"Software Developer"}>Software Developer</option>
                                         <option value={"Automation Test Engineer"}>Automation Test Engineer</option>
@@ -166,23 +167,23 @@ const CareerForm = () => {
                             <div className='flex-col'>
                                 <label>Experience: </label>
                                 <div>
-                                    <input className='border text-sm border-gray-500 focus:outline-gray-500 rounded-sm p-1' name='experience' type="number" value={candidateData.experience} onChange={changeHandle} placeholder='0' min={0}/>
+                                    <input className='border text-sm border-gray-500 focus:outline-gray-500 rounded-sm p-1 pr-14' name='experience' type="number" value={candidateData.experience} onChange={changeHandle} placeholder='0' min={0}/>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div className='mt-4 ml-[4%] bold'>
-                        <div className='flex flex-row gap-[25%] flex-wrap'>
+                        <div className='flex flex-row gap-[9%] flex-wrap'>
                             <div className='flex-col'>
                                 <label>Current Salary: </label>
                                 <div>
-                                    <input className='border text-sm border-gray-500 rounded-sm focus:outline-gray-500 p-1' name='currentSalary' value={candidateData.currentSalary} onChange={changeHandle} type="tel" placeholder='0'/>
+                                    <input className='border text-sm border-gray-500 rounded-sm focus:outline-gray-500 p-1 pr-10' name='currentSalary' value={candidateData.currentSalary} onChange={changeHandle} type="tel" placeholder='0'/>
                                 </div>
                             </div>
                             <div className='flex-col'>
                                 <label>Expected Salary: </label>
                                 <div>
-                                    <input className='border text-sm border-gray-500 focus:outline-gray-500 rounded-sm p-1' name='expectedSalary' value={candidateData.expectedSalary} onChange={changeHandle} type="tel" placeholder='0'/>
+                                    <input className='border text-sm border-gray-500 focus:outline-gray-500 rounded-sm p-1 pr-14' name='expectedSalary' value={candidateData.expectedSalary} onChange={changeHandle} type="tel" placeholder='0'/>
                                 </div>
                             </div>
                         </div>
@@ -191,7 +192,7 @@ const CareerForm = () => {
                         <div className='flex-col'>
                             <label>Education: </label>
                             <div>
-                                <input className='border w-[96%] text-sm border-gray-500 focus:outline-gray-500 rounded-sm p-1' name='education' required value={candidateData.education} onChange={changeHandle} type="text" placeholder='BTech'/>
+                                <input className='border w-[97%] text-sm border-gray-500 focus:outline-gray-500 rounded-sm p-1' name='education' required value={candidateData.education} onChange={changeHandle} type="text" placeholder='BTech'/>
                             </div>
                         </div>
                     </div>
@@ -199,7 +200,7 @@ const CareerForm = () => {
                         <div className='flex-col'>
                             <label>Address: </label>
                             <div>
-                                <textarea className='border w-[96%] text-sm border-gray-500 focus:outline-gray-500 rounded-sm p-1' name="address" cols="30" rows="4" onChange={changeHandle} value={candidateData.address} placeholder='A-55, Block A, Okhla Phase II, New Delhi, 110020'></textarea>
+                                <textarea className='border w-[97%] text-sm border-gray-500 focus:outline-gray-500 rounded-sm p-1' name="address" cols="30" rows="4" onChange={changeHandle} value={candidateData.address} placeholder='A-55, Block A, Okhla Phase II, New Delhi, 110020'></textarea>
                             </div>
                         </div>
                     </div>
@@ -207,7 +208,7 @@ const CareerForm = () => {
                         <div className='flex-col '>
                             <label>Resume Upload: </label>
                             <div className='cursor-pointer'>
-                                <input className='border w-[96%] text-sm border-gray-500 focus:outline-gray-500 rounded-sm p-1 bg-white' ref={inputRef} type="file" name="file" placeholder="No File Chosen"
+                                <input className='border w-[97%] text-sm border-gray-500 focus:outline-gray-500 rounded-sm p-1 bg-white' ref={inputRef} type="file" name="file" placeholder="No File Chosen"
                                 onChange={(e) =>setCandidateData({
                                   ...candidateData,
                                   resume: e.target.files[0],
